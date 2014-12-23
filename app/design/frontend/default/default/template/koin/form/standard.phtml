@@ -16,26 +16,17 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * @Last update		2014-18-12
+ * @Autor     	Elder Xavier
+ * @Email		eldersxavier@gmail.com / desenv@e-lustre.com.br 
  */
 ?>
 
-
-
 <fieldset class="form-list">
-	<ul id="payment_form_V3W_Koin_Standard" style="display:none;">
-	<li style="width: 80%; float: left; margin-top:10px">
-	
-		<div class="koin_products">
-			<div class='koin_product'>
-				<div class="info">
-					<img src='http://www.koin.com.br/resources/images/logo-header.png' alt='Koin' />
-					<div class="koin-clear"></div>
-					
-				</div>
-			</div>
-
-			<input type="hidden" name="payment[koin_fraud_id]" id="payment[koin_fraud_id]" value="" />
-			
+	<ul id="payment_form_V3W_Koin_Standard" style="display:none; margin-top: -30px;">
+	<li style="width: 80%; float: left; margin-top:10px">	
+		<div class="koin_products" >
+			<input type="hidden" name="payment[koin_fraud_id]" id="payment[koin_fraud_id]" value="" />			
 			<script type="text/javascript">
 				GetKoinFraudID(function (FraudId) { document.getElementById('payment[koin_fraud_id]').value = FraudId; });
 			</script>
@@ -157,8 +148,93 @@
 
 				<label for="koin_termo_aceite">Li e aceito os <a href="javascript:void(0)" onclick="showTermo()">Termos e Condições</a>.</label>
 				<div class="koin-clear"></div>
-			</div>
-			<?php 
+				
+				
+				<div class="two_fields_">
+					<div class="short">
+						<label for="billing:month" class="" id="id_label_dob_koin"> Data de nascimento * </label>					
+						<div class="data_area customer-dob"> 
+							<div class="dob-day">
+								<input maxlength="2" type="text" id="koin_billing_day" name="koin_billing_day" value="" title="Dia" class="required-entry"  />
+								<label for="koin_billing_day">DD</label>
+							</div>
+							<div class="dob-month">
+								<input maxlength="2" type="text" id="koin_billing_month" name="koin_billing_month" value="" title="M&ecirc;s" class="required-entry"  />
+								<label for="koin_billing_month">MM</label>
+							</div>
+							<div class="dob-year">
+								<input maxlength="4" type="text" id="koin_billing_year" name="koin_billing_year" value="" title="Ano" class="required-entry" />
+								<label for="koin_billing_year">AAAA</label>
+							</div>							
+						</div>
+					</div>
+				</div>
+				
+			</div>			
+			<script type="text/javascript">
+			<?php /*caso cliente logado, atualiza aniversario*/
+			if ($this->helper('customer')->isLoggedIn() ):
+				$customer = Mage::getSingleton('customer/session');
+				$lentaxvat = strlen($customer->getCustomer()->getTaxvat());
+				if($lentaxvat > 11){
+				?>
+					document.getElementById("id_label_dob_koin").innerHTML = "Data de fundação *";
+				<?php	
+				}						
+				?>
+				function persistenceBirtday(){
+					$j('#loading-mask').css('display','block');
+					jQuery.ajax({
+					type      : 'post', 
+					url       : 'http://dev.e-lustre.com.br/_persistente_birtday_koin.php',
+					data	  : 'email=<?php echo $customer->getCustomer()->getEmail();?>'+'&day='+document.getElementById("koin_billing_day").value + '&mont='+document.getElementById("koin_billing_month").value+'&year='+document.getElementById("koin_billing_year").value, 	
+					dataType  : 'html', 
+					success: function( txt ){							
+						setTimeout(function(){			
+							$j('#loading-mask').css('display','none');																		
+						}, 1000);
+					}				
+			});
+			}
+			$j('#koin_billing_year').change(function(){
+				if(document.getElementById("koin_billing_day").value>0 && document.getElementById("koin_billing_month").value>0){
+					persistenceBirtday();					
+				}
+			});
+			$j('#koin_billing_month').change(function(){
+				if(document.getElementById("koin_billing_day").value>0 && document.getElementById("koin_billing_year").value>0){
+					persistenceBirtday();					
+				}
+			});
+			$j('#koin_billing_day').change(function(){
+				if(document.getElementById("koin_billing_month").value>0 && document.getElementById("koin_billing_year").value>0){
+					persistenceBirtday();					
+				}
+			});
+			
+			<?php			
+			endif;			
+			?>
+				
+				$j('#koin_billing_day').change(function(){
+					valor = $j('#koin_billing_day').val();
+					document.getElementById("billing:day").value = valor;
+				});
+				
+				$j('#koin_billing_month').change(function(){
+					valor = $j('#koin_billing_month').val();
+					document.getElementById("billing:month").value = valor;
+				});
+				$j('#koin_billing_year').change(function(){
+					valor = $j('#koin_billing_year').val();
+					document.getElementById("billing:year").value = valor;
+				});
+				
+				$j("#koin_billing_day").mask("99");
+				$j("#koin_billing_month").mask("99");
+				$j("#koin_billing_year").mask("9999");				
+			</script>
+		<?php					
 		}
 		?>
 		</li>
