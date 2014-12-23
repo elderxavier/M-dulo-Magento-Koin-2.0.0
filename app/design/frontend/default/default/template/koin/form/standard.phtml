@@ -1,0 +1,166 @@
+<?php
+/*
+ * Koin Module - payment method module for Magento, integrating
+ * the billing forms with Koin Web Service.
+ * Copyright (C) 2013  Koin
+ * 
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+?>
+
+
+
+<fieldset class="form-list">
+	<ul id="payment_form_V3W_Koin_Standard" style="display:none;">
+	<li style="width: 80%; float: left; margin-top:10px">
+	
+		<div class="koin_products">
+			<div class='koin_product'>
+				<div class="info">
+					<img src='http://www.koin.com.br/resources/images/logo-header.png' alt='Koin' />
+					<div class="koin-clear"></div>
+					
+				</div>
+			</div>
+
+			<input type="hidden" name="payment[koin_fraud_id]" id="payment[koin_fraud_id]" value="" />
+			
+			<script type="text/javascript">
+				GetKoinFraudID(function (FraudId) { document.getElementById('payment[koin_fraud_id]').value = FraudId; });
+			</script>
+			<div class="koin-clear"></div>
+		</div>
+
+		
+		<?php
+		$inputs = $this->getFormInputs();
+		if (count($inputs) > 0){
+			?>
+			<div id="koin_form_fisica" style="display:none;">
+				<?php 
+				foreach ($inputs['fisica'] as $input){
+					echo "{$input['label']}:<br/>";
+					echo "<input type='text'";
+						echo " value=''";
+						echo " name='payment[{$input['name']}]'";
+						echo " id='{$input['name']}'";
+						echo ($input['options']) ? " {$input['options']}" : "";
+						echo " class='required-entry'";
+					echo "/>";
+				}
+				?>
+			</div>
+			<div id="koin_form_juridica" style="display:none;" class="form">
+				<?php 
+				foreach ($inputs['juridica'] as $input){
+					echo "{$input['label']}:<br/>";
+					echo "<input type='text'";
+						echo " value=''";
+						echo " name='payment[{$input['name']}]'";
+						echo " id='{$input['name']}'";
+						echo ($input['options']) ? " {$input['options']}" : "";
+						echo " class='required-entry'";
+					echo "/>";
+				}
+				?>
+			</div>
+			<div class="koin-clear"></div>
+			
+			<script type="text/javascript">
+				function dateMask(inputData, e){
+					if(document.all){
+						var tecla = event.keyCode;
+					} else {
+						var tecla = e.which;
+					}
+					if(tecla >= 47 && tecla < 58){
+						var data = inputData.value;
+						if (data.length == 2 || data.length == 5){
+							data += '/';
+							inputData.value = data;
+						}
+					} else if(tecla == 8 || tecla == 0){
+						return true;
+					} else {
+						return false;
+					}
+				}
+		
+				var idInputCpf = '';
+				var idInputCnpj = '';
+				
+				<?php
+				$idInputCpfCnpj = $this->getIdCpfCnpjInput();
+				if ($idInputCpfCnpj['id_input_cpf']){
+					?>
+					idInputCpf = '<?php echo $idInputCpfCnpj['id_input_cpf'];?>';
+					<?php
+				}
+				if ($idInputCpfCnpj['id_input_cnpj']){
+					?>
+					idInputCnpj = '<?php echo $idInputCpfCnpj['id_input_cnpj'];?>';
+					<?php
+				}
+				?>
+
+				window.setTimeout(autoCompleteCpfCnpj,0);
+		    	window.setTimeout(verificarTipoPessoa,0);
+		
+		    	(function(){
+		    		if (idInputCpf != ''){
+						if (document.getElementById(idInputCpf) != undefined && document.getElementById('koin_cpf') != undefined){
+							$(idInputCpf).observe('blur',autoCompleteCpfCnpj);
+						}
+		        	}
+		    		if (idInputCnpj != ''){
+		        		if (document.getElementById(idInputCnpj) != undefined){
+		        			var inputCnpj = document.getElementById(idInputCnpj);
+		
+			        		//mesmo ID (OSC)
+			        		if (idInputCpf == idInputCnpj){
+			            		if ($$('input[id="'+idInputCnpj+'"]')[1] != undefined){
+			        				inputCnpj = $$('input[id="'+idInputCnpj+'"]')[1];
+			            		}
+			            	}
+			            	
+							if (document.getElementById('koin_cnpj') != undefined){
+								inputCnpj.observe('blur',autoCompleteCpfCnpj);
+							}
+			        	}
+		    		}
+		    	})();
+			</script>
+			<?php 
+		}
+		
+		
+		if ($this->exibirTermo()){
+			?>
+ 		Escolha a Koin e pague pelo produto somente após recebê-lo.<br>
+                    Essa opção de pagamento não altera o prazo de entrega nem gera custo adicional.<br>
+                    Você receberá um e-mail da Koin com as instruções para o pagamento.<br>
+                    Em caso de dúvidas, acesse <a href="http://www.koin.com.br" target="_blank">www.koin.com.br</a>.
+			<div class="koin_termo" id="koin_termo">
+				<input type='checkbox' class='required-entry check_termo' name='koin_termo_aceite' id='koin_termo_aceite' value="1" onchange="checkTermo()" />
+				<input type='hidden' class='check_termo' name='payment[koin_termo_aceite]' id='payment[koin_termo_aceite]' value="0" />
+
+				<label for="koin_termo_aceite">Li e aceito os <a href="javascript:void(0)" onclick="showTermo()">Termos e Condições</a>.</label>
+				<div class="koin-clear"></div>
+			</div>
+			<?php 
+		}
+		?>
+		</li>
+	</ul>
+</fieldset>

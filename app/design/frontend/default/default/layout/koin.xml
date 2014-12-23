@@ -1,0 +1,107 @@
+<?xml version="1.0"?>
+<!--
+/*
+ * Koin Module - payment method module for Magento, integrating
+ * the billing forms with Koin Web Service.
+ * Copyright (C) 2013  Koin
+ * 
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+ -->
+<layout>
+    
+    <v3w_koin_pay_verify module="V3W_Koin" translate="label">
+        <label>Verificacao do pagamento</label>
+        <reference name="root">
+            <action method="setTemplate"><template>page/2columns-right.phtml</template></action>
+        </reference>
+        <reference name="content">
+			<block type="V3W_Koin/verify" name="V3W_Koin.success" template="koin/success.phtml"/>
+        </reference>
+    </v3w_koin_pay_verify>
+    
+    <v3w_koin_produto_index module="V3W_Koin" translate="label">
+        <label>Koin</label>
+        <reference name="root">
+            <action method="setTemplate"><template>koin/page/popup.phtml</template></action>
+        </reference>
+        <reference name="content">
+			<block type="V3W_Koin/verify" name="V3W_Koin.produto" template="koin/produto.phtml"/>
+        </reference>
+        <reference name="head">
+            <action method="addCss"><stylesheet>css/koin/koin-popup.css</stylesheet></action>
+        </reference>
+    </v3w_koin_produto_index>
+    
+    <checkout_onepage_index>
+     	<reference name="head">
+     		<block type="core/text" name="koinJs">
+     	 		<action method="setText">
+       	 			<text>
+           				<![CDATA[<script type="text/javascript" src="http://resources.koin.com.br/scripts/koin.min.js"></script>]]>
+        			</text>
+      			</action>
+  	 	</block>
+		
+		<action method="addJs"><script>koin/koin.js</script></action>
+		<action method="addCss"><stylesheet>css/koin/koin.css</stylesheet></action>
+	</reference>
+    </checkout_onepage_index>
+	
+	<onepagecheckout_index_index>
+     	<reference name="head">
+     		<block type="core/text" name="koinJs">
+     	 		<action method="setText">
+       	 			<text>
+           				<![CDATA[<script type="text/javascript" src="http://resources.koin.com.br/scripts/koin.min.js"></script>]]>
+        			</text>
+      			</action>
+  	 	</block>
+		
+		<action method="addJs"><script>koin/koin.js</script></action>
+		<action method="addCss"><stylesheet>css/koin/koin.css</stylesheet></action>
+	</reference>
+	</onepagecheckout_index_index>
+	
+	<onestepcheckout_index_index>
+		<reference name="head">
+     		<block type="core/text" name="koinJs">
+     	 		<action method="setText">
+       	 			<text>
+           				<![CDATA[<script type="text/javascript" src="http://resources.koin.com.br/scripts/koin.min.js"></script>]]>
+        			</text>
+      			</action>
+  	 	</block>
+		
+		<action method="addJs"><script>koin/koin.js</script></action>
+		<action method="addCss"><stylesheet>css/koin/koin.css</stylesheet></action>
+	</reference>
+	</onestepcheckout_index_index>
+	<onestepcheckout_index>
+		<reference name="head">
+     		<block type="core/text" name="koinJs">
+     	 		<action method="setText">
+       	 			<text>
+           				<![CDATA[<script type="text/javascript" src="http://resources.koin.com.br/scripts/koin.min.js"></script>]]>
+        			</text>
+      			</action>
+  	 	</block>
+		
+		<action method="addJs"><script>koin/koin.js</script></action>
+		<action method="addCss"><stylesheet>css/koin/koin.css</stylesheet></action>
+	</reference>
+	</onestepcheckout_index>
+    
+</layout>
+ 

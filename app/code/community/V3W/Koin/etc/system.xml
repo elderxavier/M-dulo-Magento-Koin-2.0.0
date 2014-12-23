@@ -1,0 +1,183 @@
+<?xml version="1.0"?>
+<!--
+/*
+ * Koin Module - payment method module for Magento, integrating
+ * the billing forms with Koin Web Service.
+ * Copyright (C) 2013  Koin
+ * 
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+-->
+<config>
+	<sections>
+        <payment translate="label" module="payment">
+			<groups>
+				<V3W_Koin_Standard translate="label">
+                
+					<label>Koin</label>
+					<sort_order>675</sort_order>
+					<show_in_default>1</show_in_default>
+				  	<show_in_website>1</show_in_website>
+				  	<show_in_store>1</show_in_store>
+				  	
+				  	<comment>
+                        <![CDATA[
+                        	<div class='koin_main'>
+                        		<div class='koin_logo'>
+                        		</div>
+                        		<div class='koin_description'>
+	                        		<strong>
+	                        		KOIN Módulo Magento - Versão 2.0.0 (Outubro - 2014)<br/>
+									Copyright © 2014 Koin. Todos os direitos reservados.
+									</strong>
+									<br/><br/>
+									Para credenciar sua loja, entre em contato com a Equipe Comercial Koin através do e-mail comercial@koin.com.br<br/>
+									Em caso de dúvidas ou problemas na utilização deste módulo, acesse o <a href = "http://www.koin.com.br/home/devcenter"> Guia de Integração Koin</a> ou entre em contato com nossa Equipe de Integração através do e-mail integração@koin.com.br.
+									<br/><br/>
+									<i>Aumente suas vendas sem riscos com Koin!</i>
+                        		</div>
+                        	</div>
+                        ]]>
+                    </comment>
+				  	
+					<fields>
+				      	<active translate="label">
+							<label>Enabled</label>
+                            <comment><![CDATA[Favor habilitar, caso nao estejam, os campos TaxVat e BirthDate nos dados dos clientes]]></comment>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>1</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+					  		<show_in_store>1</show_in_store>
+					    </active>
+						<title translate="label">
+					  		<label>Title</label>
+					  		<comment>Recomenda-se definir este valor como "Aprovado Koin" para visualização na loja.</comment>
+					  		<frontend_type>text</frontend_type>
+					  		<sort_order>30</sort_order>
+					  		<show_in_default>1</show_in_default>
+					  		<show_in_website>1</show_in_website>
+					  		<show_in_store>1</show_in_store>
+				      	</title>
+						<url translate="label">
+							<label>URL do Webservice</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>40</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+					  		<show_in_store>1</show_in_store>
+					    </url>
+					    <processing_order_status translate="label">
+							<label>Status do pedido Koin</label>
+							<frontend_type>select</frontend_type>
+                            <source_model>V3W_Koin/source_payment</source_model>
+					  		<sort_order>70</sort_order>
+					  		<show_in_default>1</show_in_default>
+					  		<show_in_website>1</show_in_website>
+					  		<show_in_store>1</show_in_store>
+				      	</processing_order_status>
+						<consumer_key translate="label">
+							<label>Koin Consumer Key</label>
+					  		<frontend_type>text</frontend_type>
+					  		<sort_order>80</sort_order>
+					  		<show_in_default>1</show_in_default>
+					  		<show_in_website>1</show_in_website>
+					  		<show_in_store>1</show_in_store>
+					  		<tooltip><![CDATA[Esta chave serve para Koin identificar a sua loja.]]></tooltip>
+				      	</consumer_key>
+						<secret_key translate="label">
+							<label>Koin Secret Key</label>
+					  		<frontend_type>text</frontend_type>
+					  		<sort_order>90</sort_order>
+					  		<show_in_default>1</show_in_default>
+					  		<show_in_website>1</show_in_website>
+					  		<show_in_store>1</show_in_store>
+					  		<tooltip><![CDATA[Esta chave autentica de forma segura a sua loja na Koin.]]></tooltip>
+				      	</secret_key>
+				      	<sort_order translate="label">
+						    <label>Ordem de exibição do módulo</label>
+						    <frontend_type>text</frontend_type>
+						    <sort_order>100</sort_order>
+						    <show_in_default>1</show_in_default>
+						    <show_in_website>1</show_in_website>
+						    <show_in_store>0</show_in_store>
+							<comment>Ordem que você deseja que o módulo apareça para seu cliente no checkout, exemplo: 1, 3, 7 e etc</comment>
+						</sort_order>
+						
+						<koin_configuracoes_avancadas type="group" translate="label">
+                            <label>Configurações Avançadas</label>
+                            <frontend_class>config-advanced</frontend_class>
+                            <frontend_type>text</frontend_type>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <sort_order>102</sort_order>
+
+                            <fields>
+                            	<koin_input_ids_header translate="label">
+		                            <label>Auto-preenchimento</label>
+		                            <frontend_model>adminhtml/system_config_form_field_heading</frontend_model>
+		                            <sort_order>103</sort_order>
+		                            <show_in_default>1</show_in_default>
+		                            <show_in_website>1</show_in_website>
+		                            <show_in_store>0</show_in_store>
+		                        </koin_input_ids_header>
+								<koin_id_input_cpf translate="label">
+								    <label>ID do campo CPF</label>
+								    <frontend_type>text</frontend_type>
+								    <sort_order>104</sort_order>
+								    <show_in_default>1</show_in_default>
+								    <show_in_website>1</show_in_website>
+								    <show_in_store>0</show_in_store>
+									<comment>ID do campo de preenchimento do CPF</comment>
+									<tooltip><![CDATA[Define o campo de CPF no checkout Magento para a Koin capturar o valor informado. Recomendamos informar este campo.]]></tooltip>
+								</koin_id_input_cpf>
+								<koin_id_input_cnpj translate="label">
+								    <label>ID do campo CNPJ</label>
+								    <frontend_type>text</frontend_type>
+								    <sort_order>105</sort_order>
+								    <show_in_default>1</show_in_default>
+								    <show_in_website>1</show_in_website>
+								    <show_in_store>0</show_in_store>
+									<comment>ID do campo de preenchimento do CNPJ</comment>
+									<tooltip><![CDATA[Define o campo de CNPJ no checkout Magento para a Koin capturar o valor informado. Recomendamos informar este campo.]]></tooltip>
+								</koin_id_input_cnpj>
+								
+								<koin_produto_header translate="label">
+		                            <label>Produto Koin</label>
+		                            <frontend_model>adminhtml/system_config_form_field_heading</frontend_model>
+		                            <sort_order>106</sort_order>
+		                            <show_in_default>1</show_in_default>
+		                            <show_in_website>1</show_in_website>
+		                            <show_in_store>0</show_in_store>
+		                        </koin_produto_header>
+								<koin_produto_codigo translate="label">
+								    <label>Código do Produto</label>
+								    <frontend_type>text</frontend_type>
+								    <sort_order>108</sort_order>
+								    <show_in_default>1</show_in_default>
+								    <show_in_website>1</show_in_website>
+								    <show_in_store>0</show_in_store>
+									<comment>Código identificador do produto específico</comment>
+									<tooltip><![CDATA[Código identificador do Produto Específico]]></tooltip>
+								</koin_produto_codigo>
+							</fields>
+						</koin_configuracoes_avancadas>
+			  	     </fields>
+                </V3W_Koin_Standard>
+            </groups>
+		</payment>
+	</sections>
+</config>

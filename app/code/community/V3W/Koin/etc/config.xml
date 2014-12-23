@@ -1,0 +1,183 @@
+<?xml version="1.0"?>
+<!--
+/*
+ * Koin Module - payment method module for Magento, integrating
+ * the billing forms with Koin Web Service.
+ * Copyright (C) 2013  Koin
+ * 
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+-->
+<config>
+	
+	<modules>
+		<V3W_Koin>
+			<version>2.0.0</version>
+		</V3W_Koin>
+	</modules>
+	
+	<global>
+		<models>
+			<V3W_Koin>
+				<class>V3W_Koin_Model</class>
+			</V3W_Koin>
+		</models>
+		<resources>
+			<V3W_Koin_setup>
+				<setup>
+					<module>V3W_Koin</module>
+				</setup>
+				<connection>
+					<use>core_setup</use>
+				</connection>
+			</V3W_Koin_setup>
+			<V3W_Koin_write>
+				<connection>
+					<use>core_write</use>
+				</connection>
+			</V3W_Koin_write>
+			<V3W_Koin_read>
+				<connection>
+					<use>core_read</use>
+				</connection>
+			</V3W_Koin_read>
+		</resources>
+		<helpers>
+			<V3W_Koin>
+				<class>V3W_Koin_Helper</class>
+			</V3W_Koin>
+		</helpers>
+		<blocks>
+			<V3W_Koin>
+				<class>V3W_Koin_Block</class>
+			</V3W_Koin>
+		</blocks>
+		<fieldsets>
+			<sales_convert_quote_address>
+				<koin_cpf>
+					<to_order>*</to_order>
+				</koin_cpf>
+				<koin_birthday>
+					<to_order>*</to_order>
+				</koin_birthday>
+				<koin_cnpj>
+					<to_order>*</to_order>
+				</koin_cnpj>
+				<koin_founding_date>
+					<to_order>*</to_order>
+				</koin_founding_date>
+			</sales_convert_quote_address>
+			<sales_convert_order>
+				<koin_cpf>
+					<to_invoice>*</to_invoice>
+					<to_shipment>*</to_shipment>
+					<to_cm>*</to_cm>
+				</koin_cpf>
+				<koin_birthday>
+					<to_invoice>*</to_invoice>
+					<to_shipment>*</to_shipment>
+					<to_cm>*</to_cm>
+				</koin_birthday>
+				<koin_cnpj>
+					<to_invoice>*</to_invoice>
+					<to_shipment>*</to_shipment>
+					<to_cm>*</to_cm>
+				</koin_cnpj>
+				<koin_founding_date>
+					<to_invoice>*</to_invoice>
+					<to_shipment>*</to_shipment>
+					<to_cm>*</to_cm>
+				</koin_founding_date>
+			</sales_convert_order>
+		</fieldsets>
+		<events>
+			<sales_model_service_quote_submit_before>
+				<observers>
+					<V3W_Koin>
+						<type>singleton</type>
+						<class>V3W_Koin_Model_Observer</class>
+						<method>requestKoin</method>
+					</V3W_Koin>
+				</observers>
+			</sales_model_service_quote_submit_before>
+		</events>
+	</global>
+	
+	<frontend>
+		<routers>
+			<V3W_Koin>
+				<use>standard</use>
+				<args>
+					<module>V3W_Koin</module>
+					<frontName>koin</frontName>
+				</args>
+			</V3W_Koin>
+		</routers>
+		<layout>
+			<updates>
+				<V3W_Koin>
+					<file>koin.xml</file>
+				</V3W_Koin>
+			</updates>
+		</layout>
+		<translate>
+			<modules>
+				<V3W_Koin>
+					<files>
+						<default>V3W_Koin.csv</default>
+					</files>
+				</V3W_Koin>
+			</modules>
+		</translate>
+	</frontend>
+	
+	<adminhtml>
+		<translate>
+			<modules>
+				<V3W_Koin>
+					<files>
+						<default>V3W_Koin.csv</default>
+					</files>
+				</V3W_Koin>
+			</modules>
+		</translate>      
+        <layout>
+            <updates>
+                <koin>
+                    <file>koin.xml</file>
+                </koin>
+            </updates>
+        </layout>        
+    </adminhtml>
+	
+	<default>
+		<payment>
+			<V3W_Koin_Standard>
+				<model>V3W_Koin_Model_Standard</model>
+				<active>0</active>
+				<url>http://api.koin.com.br/V1/TransactionService.svc/Request</url>
+				<order_status>pending</order_status>
+				<processing_order_status></processing_order_status>
+				<title>Aprovado Koin</title>
+				<auto_capture>1</auto_capture>
+				<consumer_key>sua_consumer_key_koin</consumer_key>
+				<secret_key>sua_secret_key_koin</secret_key>
+			</V3W_Koin_Standard>
+			<koin_configuracoes_avancadas>
+				<koin_produto_codigo>21</koin_produto_codigo>
+			</koin_configuracoes_avancadas>
+		</payment>
+	</default>
+
+</config>

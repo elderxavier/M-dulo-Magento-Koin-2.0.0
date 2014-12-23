@@ -1,0 +1,17 @@
+.koin_main {
+	width:900px;
+}
+
+.koin_logo {
+	background-image:url(../../images/koin/logokoin_small.png);
+	width:200px;
+	height:58px;
+	float:left;
+}
+
+.koin_description {
+	padding-left:10px;
+	width:690px;
+	margin-bottom:10px;
+	float:left;
+}

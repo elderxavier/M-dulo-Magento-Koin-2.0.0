@@ -1,0 +1,56 @@
+@CHARSET "UTF-8";
+
+.koin_error{
+	margin: 5px auto;
+}
+
+.koin_products{
+	width: 190px;
+}
+
+.koin_products input{
+	float: left;
+	margin: 11px 3px 0px 0px;
+}
+
+.koin_products label{
+	float: left;
+}
+
+.koin_product{
+	margin-bottom: 10px;
+}
+
+.koin_product .info{
+	
+}
+
+
+.form{
+	clear: both;
+}
+
+.koin_termo{
+	margin-top: 15px;
+	width: 190px;
+}
+
+.koin_termo .check_termo{
+    float: left;
+}
+
+.koin_termo label{
+	padding-left: 3px;
+	font-size: 11px;
+    line-height: 14px;
+    font-weight: normal;
+    float: left;
+}
+
+.koin-clear{
+	clear: both;
+}
+
+.koin-product-help{
+	width: 100%;
+}
