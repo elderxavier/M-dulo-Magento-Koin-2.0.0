@@ -22,6 +22,8 @@
  */
 ?>
 
+
+
 <fieldset class="form-list">
 	<ul id="payment_form_V3W_Koin_Standard" style="display:none; margin-top: -30px;">
 	<li style="width: 80%; float: left; margin-top:10px">	
@@ -172,6 +174,7 @@
 				
 			</div>			
 			<script type="text/javascript">
+			
 			<?php /*caso cliente logado, atualiza aniversario*/
 			if ($this->helper('customer')->isLoggedIn() ):
 				$customer = Mage::getSingleton('customer/session');
@@ -215,17 +218,20 @@
 			<?php			
 			endif;			
 			?>
-				
-				$j('#koin_billing_day').change(function(){
+				//$j('#koin_billing_day').change(function(){
+				$(document).on('change','#koin_billing_day',function(event){				
 					valor = $j('#koin_billing_day').val();
-					document.getElementById("billing:day").value = valor;
+					document.getElementById("billing:day").value = valor;					
 				});
 				
-				$j('#koin_billing_month').change(function(){
+				//$j('#koin_billing_month').change(function(){
+				$(document).on('change','#koin_billing_month',function(event){				
 					valor = $j('#koin_billing_month').val();
 					document.getElementById("billing:month").value = valor;
 				});
-				$j('#koin_billing_year').change(function(){
+				
+				//$j('#koin_billing_year').change(function(){
+				$(document).on('change','#koin_billing_year',function(event){
 					valor = $j('#koin_billing_year').val();
 					document.getElementById("billing:year").value = valor;
 				});
